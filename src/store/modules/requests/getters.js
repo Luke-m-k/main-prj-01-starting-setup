@@ -8,3 +8,4 @@ export default {
         return getters.requests && getters.requests.length > 0;
     }
 }
+
