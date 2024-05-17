@@ -71,7 +71,6 @@
         },
         methods: {
             clearValidity(input) {
-                console.log("Blurs")
                 this[input].isValid = true;
             },
             validateForm() {

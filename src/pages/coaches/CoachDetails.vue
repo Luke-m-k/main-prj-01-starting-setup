@@ -9,7 +9,7 @@
         <base-card>
             <header>
                 <h2>Interested? Reach out now!</h2>
-                <base-button link :to="contactLink">Contact</base-button>
+                <base-button link :to="contactLink" v-if="!routeReached">Contact</base-button>
             </header>
             <router-view></router-view>
         </base-card>
@@ -46,6 +46,10 @@
             contactLink() {
                 // return this.$route.path + '/' + this.id + '/contact';
                 return this.$route.path + '/contact';
+            },
+            routeReached() {
+                const lastRoute = this.$route.path.split('/').pop();
+                return lastRoute === 'contact';
             }
         },
         created() {
