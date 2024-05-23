@@ -1,6 +1,5 @@
 export default {
     async registerCoach(context, data) {
-        const userId = context.rootGetters.userId;
         const coachData = {
             firstName: data.first,
             lastName: data.last,
@@ -8,8 +7,10 @@ export default {
             hourlyRate: data.rate,
             areas: data.areas
         };
+        const userId = context.rootGetters['auth/userId'];
+        const token = context.rootGetters['auth/token'];
 
-        const response = await fetch(`https://vue-course-main-project-74cc6-default-rtdb.firebaseio.com/coaches/${userId}.json`, {
+        const response = await fetch(`https://vue-course-main-project-74cc6-default-rtdb.firebaseio.com/coaches/${userId}.json?auth=${token}`, {
             method: 'PUT',
             body: JSON.stringify(coachData)
         });
@@ -25,7 +26,11 @@ export default {
             id: userId,
         })
     },
-    async loadCoaches(context) {
+    async loadCoaches(context, payload) {
+        if (!payload.forceRefresh && !context.getters.shouldUpdate){
+            return;
+        }
+
         const response = await fetch(
             `https://vue-course-main-project-74cc6-default-rtdb.firebaseio.com/coaches.json`
         );
@@ -52,5 +57,6 @@ export default {
         }
 
         context.commit('setCoaches', coaches);
+        context.commit('setFetchTimestamp');
     }
 };

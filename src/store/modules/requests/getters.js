@@ -1,6 +1,6 @@
 export default {
     requests(state, _, _2, rootGetters){
-        const currentCoachId = rootGetters.userId;
+        const currentCoachId = rootGetters['auth/userId'];
 
         return state.requests.filter(req => req.coachId === currentCoachId);
     },
@@ -8,4 +8,3 @@ export default {
         return getters.requests && getters.requests.length > 0;
     }
 }
-

@@ -45,7 +45,7 @@
 
 <style scoped>
     h2 {
-        margin: 0.5rem 0;
+        margin: 0.5rem auto;
     }
 
     .filter-option {
